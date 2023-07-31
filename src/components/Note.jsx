@@ -28,6 +28,11 @@ function Note() {
         eleman.name.toLowerCase().includes(filter.toLowerCase())
     );
 
+    const onSort = () => {
+        const sortedStudents = [...students].sort((a, b) => b.skor - a.skor)
+        setStudents(sortedStudents);
+    }
+
     return (
         <div>
             <input placeholder='Filter' onChange={onFilter} />
@@ -36,7 +41,7 @@ function Note() {
             <form onSubmit={onSubmit}>
                 <input name='name' placeholder='İsim gir' />
                 <input type='number' name='skor' placeholder='Notu gir' />
-                <button type='submit'>Add</button>
+                <button className='add' type='submit'>Add</button>
                 {
                     filteredStudents.map((item, id) => (
                         <div key={id}>
@@ -48,7 +53,7 @@ function Note() {
             </form>
             <br />
             <br />
-            <button>Sırala</button>
+            <button className='sort' onClick={onSort}>Sort by (High to Low)</button>
         </div>
     )
 }
