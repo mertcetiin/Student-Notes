@@ -5,15 +5,39 @@ function Note() {
 
     const [students, setStudents] = useState([]);
 
+    const onSubmit = (e) => {
+        e.preventDefault();
+        const name = e.target.name.value
+        const skor = e.target.skor.value
+
+        if (!name || !skor) {
+            return;
+        }
+
+        const newStudents = { name, skor }
+        setStudents([...students, newStudents])
+
+        e.target.name.value = ''
+        e.target.skor.value = ''
+    }
+
     return (
         <div>
             <input placeholder='Filter' />
             <br />
             <br />
-            <form>
+            <form onSubmit={onSubmit}>
                 <input name='name' placeholder='İsim gir' />
-                <input name='skor' placeholder='Notu gir' />
-                <button>Add</button>
+                <input type='number' name='skor' placeholder='Notu gir' />
+                <button type='submit'>Add</button>
+                {
+                    students.map((item, id) => (
+                        <div key={id}>
+                            <h2>{item.name}</h2>
+                            <p>Note: {item.skor}</p>
+                        </div>
+                    ))
+                }
             </form>
             <br />
             <br />
